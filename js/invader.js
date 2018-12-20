@@ -16,6 +16,12 @@ const ASSETS = {
 const ENEMY_ASSETS = [
     "buro", "mero", "mika", "nasu", "take"
 ];
+const ENEMY_SIZE = 64;  // 敵のサイズ
+const ENEMY_NUM = 6;   // 敵生成の最大数
+const ENEMY_INTERVAL = 300; // 敵を生成する間隔
+
+
+
 
 phina.define('MainScene', {
     superClass: 'DisplayScene',
@@ -34,6 +40,11 @@ phina.define('MainScene', {
 
         // 複数の敵を登録する対象
         this.enemyGroup = EnemyGroup().addChildTo(this);
+        for (x=3; x<8; x++) {
+            for (y=3; y<8; y++) {
+                Enemy(this.gridX.span(x * 3), this.gridY.span(y * 3), ENEMY_ASSETS[x % 5]).addChildTo(this.enemyGroup);
+            }
+        }
 
         // 敵が発射したミサイルを登録する対象
         this.missileGroup = DisplayElement().addChildTo(this);
